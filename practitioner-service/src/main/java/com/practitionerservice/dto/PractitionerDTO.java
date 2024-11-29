@@ -14,6 +14,8 @@ public class PractitionerDTO {
         this.specialty = specialty;
         this.role = role;
     }
+    // Standardkonstruktör
+    public PractitionerDTO() {}
 
     public Long getUserId() {
         return userId;

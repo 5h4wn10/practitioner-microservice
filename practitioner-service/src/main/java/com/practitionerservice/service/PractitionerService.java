@@ -51,13 +51,44 @@ public class PractitionerService {
     }
 
 
+    public PractitionerDTO getPractitionerByUsername(String username) {
+        // Steg 1: Hämta användare från User-tjänsten baserat på username
+        UserDTO user = getUserByUsername(username);
+
+        // Steg 2: Hämta practitioner baserat på användarens ID
+        Practitioner practitioner = practitionerRepository.findByUserId(user.getId())
+                .orElseThrow(() -> new RuntimeException("Practitioner not found for userId " + user.getId()));
+
+        // Steg 3: Konvertera Practitioner till PractitionerDTO och returnera
+        return new PractitionerDTO(
+                practitioner.getUserId(),
+                practitioner.getName(),
+                practitioner.getSpecialty(),
+                practitioner.getRole()
+        );
+    }
+
+    private UserDTO getUserByUsername(String username) {
+        try {
+            return webClientBuilder.build()
+                    .get()
+                    .uri(userServiceUrl + "/by-username/" + username)
+                    .retrieve()
+                    .bodyToMono(UserDTO.class)
+                    .block();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch user details for username: " + username + ", error: " + e.getMessage());
+        }
+    }
+
+
     private PractitionerDTO toDTO(Practitioner practitioner) {
         UserDTO user = getUserById(practitioner.getUserId());
         return new PractitionerDTO(
                 practitioner.getUserId(),
                 user.getFullName(),
                 practitioner.getSpecialty(),
-                user.getRoles()
+                practitioner.getRole()
         );
     }
 

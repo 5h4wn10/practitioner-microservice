@@ -1,6 +1,7 @@
 package com.practitionerservice.controller;
 
 import com.practitionerservice.dto.PractitionerDTO;
+import com.practitionerservice.dto.UserDTO;
 import com.practitionerservice.model.Practitioner;
 import com.practitionerservice.service.PractitionerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class PractitionerController {
     @Autowired
     private PractitionerService practitionerService;
 
-    @PreAuthorize("hasAuthority('PATIENT')")
+    //@PreAuthorize("hasAuthority('PATIENT')")
     @GetMapping
     public ResponseEntity<List<PractitionerDTO>> getAllPractitioners() {
         if(practitionerService.getAllPractitioners().isEmpty()) {
@@ -39,6 +40,15 @@ public class PractitionerController {
         PractitionerDTO practitioner = practitionerService.getPractitionerById(id);
         if (practitioner == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(practitioner);
+    }
+
+    @GetMapping("/by-username/{username}")
+    public ResponseEntity<PractitionerDTO> getPractitionerByUsername(@PathVariable String username) {
+        PractitionerDTO practitioner = practitionerService.getPractitionerByUsername(username);
+        if (practitioner == null) {
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(practitioner);
     }
