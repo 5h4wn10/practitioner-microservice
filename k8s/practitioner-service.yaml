@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: practitioner-service
+  labels:
+    app: practitioner-service
+spec:
+  type: ClusterIP
+  selector:
+    app: practitioner-service
+  ports:
+    - protocol: TCP
+      port: 8083
+      targetPort: 8083

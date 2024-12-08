@@ -19,7 +19,7 @@ public class PractitionerController {
     @Autowired
     private PractitionerService practitionerService;
 
-    //@PreAuthorize("hasAuthority('PATIENT')")
+    //@PreAuthorize("hasAnyRole('PATIENT')")
     @GetMapping
     public ResponseEntity<List<PractitionerDTO>> getAllPractitioners() {
         if(practitionerService.getAllPractitioners().isEmpty()) {
@@ -29,8 +29,11 @@ public class PractitionerController {
     }
 
 
+
+
     @PostMapping
     public ResponseEntity<PractitionerDTO> addPractitioner(@RequestBody PractitionerDTO practitionerDTO) {
+        System.out.println("Received PractitionerDTO: " + practitionerDTO);
         PractitionerDTO savedPractitioner = practitionerService.addPractitioner(practitionerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPractitioner);
     }

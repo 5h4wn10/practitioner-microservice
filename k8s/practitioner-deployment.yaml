@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: practitioner-service
+  labels:
+    app: practitioner-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: practitioner-service
+  template:
+    metadata:
+      labels:
+        app: practitioner-service
+    spec:
+      containers:
+        - name: user-service
+          image: <docker-image-name-for-user-service>:<version>
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: production
