@@ -24,9 +24,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
+                .cors(cors -> {}) // Aktivera CORS
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/practitioners/**").hasAnyAuthority("ROLE_PATIENT", "ROLE_STAFF", "ROLE_DOCTOR", "ROLE_INTERNAL") // Interna förfrågningar
-                        .requestMatchers(HttpMethod.POST, "/api/practitioners").hasAnyAuthority("ROLE_PATIENT", "ROLE_STAFF", "ROLE_DOCTOR", "ROLE_INTERNAL")// Tillåt ROLE_INTERNAL här
+                        .requestMatchers("/api/practitioners/**").hasAnyAuthority("ROLE_PATIENT", "ROLE_STAFF", "ROLE_DOCTOR", "ROLE_INTERNAL", "DOCTOR", "STAFF", "PATIENT")
+                        .requestMatchers(HttpMethod.POST, "/api/practitioners").hasAnyAuthority("ROLE_PATIENT", "ROLE_STAFF", "ROLE_DOCTOR", "ROLE_INTERNAL", "DOCTOR", "STAFF", "PATIENT")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
