@@ -23,7 +23,7 @@ jobs:
         run: mvn clean test
 
       - name: Build JAR
-        run: mvn clean package
+        run: mvn clean install
 
       - name: Build and Push Docker Image
         env:
