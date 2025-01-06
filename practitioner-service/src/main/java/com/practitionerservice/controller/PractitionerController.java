@@ -34,9 +34,12 @@ public class PractitionerController {
     @PostMapping
     public ResponseEntity<PractitionerDTO> addPractitioner(@RequestBody PractitionerDTO practitionerDTO) {
         System.out.println("Received PractitionerDTO: " + practitionerDTO);
+        System.out.println("Received PractitionerDTO: " + practitionerDTO);
         PractitionerDTO savedPractitioner = practitionerService.addPractitioner(practitionerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedPractitioner);
     }
+
+    //TESTETSTESTSET
 
     @GetMapping("/{id}")
     public ResponseEntity<PractitionerDTO> getPractitionerById(@PathVariable Long id) {
