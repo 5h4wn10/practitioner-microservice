@@ -38,4 +38,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+    //TEST FÖR CI CD PIPELINE
 }
