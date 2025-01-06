@@ -1,12 +1,9 @@
 package com.practitionerservice.service;
 
-import com.practitionerservice.config.JwtTokenUtil;
 import com.practitionerservice.dto.PractitionerDTO;
 import com.practitionerservice.dto.UserDTO;
 import com.practitionerservice.model.Practitioner;
-import com.practitionerservice.model.Role;
 import com.practitionerservice.repository.PractitionerRepository;
-import io.jsonwebtoken.Jwt;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
